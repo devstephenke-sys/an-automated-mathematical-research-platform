@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
 from engine.analyzer import MathAnalyzer
@@ -113,3 +114,7 @@ def analyze_custom(custom_sequence: CustomSequence):
 @app.get("/api/ping")
 def ping():
     return {"status": "ok", "message": "MathDiscoveryAI backend is running"}
+
+@app.get("/health", response_class=HTMLResponse)
+def health_check():
+    return """<html><head><title>MathDiscoveryAI Health Check</title></head><body style='font-family:Helvetica,Arial,sans-serif;background:#09101a;color:#e2e8f0;padding:2rem;'><h1>MathDiscoveryAI Backend Health</h1><p>Status: <strong>OK</strong></p><p>The API is available at <code>/api</code>.</p><ul><li><a style='color:#7dd3fc;' href='/api/ping'>/api/ping</a></li><li><a style='color:#7dd3fc;' href='/api/sets'>/api/sets</a></li></ul><p>Use the React frontend to analyze datasets and visualize conjectures.</p></body></html>"""

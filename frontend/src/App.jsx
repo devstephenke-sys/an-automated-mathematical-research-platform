@@ -13,7 +13,12 @@ function App() {
   useEffect(() => {
     fetch(`${API_BASE}/sets`)
       .then((res) => res.json())
-      .then(setSets)
+      .then((data) => {
+        setSets(data);
+        if (data.length > 0) {
+          setSelectedKey(data[0].key);
+        }
+      })
       .catch((err) => setError(err.message));
   }, []);
 
@@ -105,6 +110,9 @@ function App() {
 
       {loading && <div className="status">Analyzing... please wait.</div>}
       {error && <div className="status error">{error}</div>}
+      {!loading && !analysis && !error && sets.length > 0 && (
+        <div className="status">Select a dataset and click Analyze to begin.</div>
+      )}
 
       {analysis && (
         <main>
