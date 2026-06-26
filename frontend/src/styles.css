@@ -1,0 +1,203 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body,
+html,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: linear-gradient(180deg, #020617 0%, #111827 100%);
+}
+
+.app-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+header {
+  margin-bottom: 32px;
+}
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: clamp(2.4rem, 2.8vw, 3.4rem);
+  letter-spacing: -0.04em;
+}
+
+header p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.controls {
+  display: grid;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.control-group {
+  background: rgba(15, 23, 42, 0.87);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 22px;
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+
+.custom-sequence textarea {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: #0e1727;
+  color: #e2e8f0;
+  padding: 14px;
+  resize: vertical;
+}
+
+button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #2563eb, #8b5cf6);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+select,
+textarea {
+  font: inherit;
+}
+
+.status {
+  padding: 18px 22px;
+  border-radius: 20px;
+  background: rgba(30, 41, 59, 0.8);
+  margin-bottom: 24px;
+}
+
+.status.error {
+  background: rgba(220, 38, 38, 0.16);
+  color: #fecaca;
+}
+
+main {
+  display: grid;
+  gap: 24px;
+}
+
+.summary-card,
+.panel {
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  border-radius: 26px;
+  padding: 28px;
+}
+
+.summary-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.8rem;
+}
+
+.summary-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.summary-grid div {
+  background: rgba(30, 41, 59, 0.92);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  border-radius: 20px;
+  padding: 18px;
+}
+
+.summary-grid span {
+  display: block;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.summary-grid strong {
+  font-size: 1.3rem;
+}
+
+.conjecture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.conjecture-card {
+  border-radius: 22px;
+  padding: 20px;
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 45%),
+    rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.conjecture-card h4 {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.meta-row,
+.score-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.92rem;
+  margin-bottom: 12px;
+}
+
+.verification {
+  display: inline-flex;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.verification.verified {
+  background: rgba(34, 197, 94, 0.15);
+  color: #86efac;
+}
+
+.verification.refuted {
+  background: rgba(248, 113, 113, 0.15);
+  color: #fecaca;
+}
+
+.pattern-group {
+  margin-bottom: 18px;
+}
+
+.pattern-group h4 {
+  margin-bottom: 10px;
+}
+
+.pattern-group ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pattern-group li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}

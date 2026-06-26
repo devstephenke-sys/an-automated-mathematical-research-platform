@@ -6,8 +6,21 @@ import sys
 from typing import List
 from engine.analyzer import MathAnalyzer
 from visualization.charts import Visualizer
-from data.sequences import PerfectNumbers, MersenneNumbers
+from data.sequences import (
+    PerfectNumbers,
+    MersenneNumbers,
+    PrimeNumbers,
+    FibonacciNumbers,
+    TriangularNumbers,
+    AmicableNumbers,
+    HighlyCompositeNumbers,
+)
 import config
+
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except Exception:
+    pass
 
 class MathDiscoveryAI:
     """Main application interface"""
@@ -28,27 +41,42 @@ class MathDiscoveryAI:
             print("\nMAIN MENU:")
             print("1. Analyze Perfect Numbers")
             print("2. Analyze Mersenne Exponents")
-            print("3. Analyze Custom Number Set")
-            print("4. View Last Analysis Report")
-            print("5. Generate Visualizations")
-            print("6. View Database Statistics")
-            print("7. Exit")
+            print("3. Analyze Prime Numbers")
+            print("4. Analyze Fibonacci Numbers")
+            print("5. Analyze Triangular Numbers")
+            print("6. Analyze Amicable Numbers")
+            print("7. Analyze Highly Composite Numbers")
+            print("8. Analyze Custom Number Set")
+            print("9. View Last Analysis Report")
+            print("10. Generate Visualizations")
+            print("11. View Database Statistics")
+            print("12. Exit")
             
-            choice = input("\nEnter your choice (1-7): ").strip()
+            choice = input("\nEnter your choice (1-12): ").strip()
             
             if choice == '1':
                 self.analyze_perfect_numbers()
             elif choice == '2':
                 self.analyze_mersenne_numbers()
             elif choice == '3':
-                self.analyze_custom_set()
+                self.analyze_prime_numbers()
             elif choice == '4':
-                self.view_last_report()
+                self.analyze_fibonacci_numbers()
             elif choice == '5':
-                self.generate_visualizations()
+                self.analyze_triangular_numbers()
             elif choice == '6':
-                self.view_database_stats()
+                self.analyze_amicable_numbers()
             elif choice == '7':
+                self.analyze_highly_composite_numbers()
+            elif choice == '8':
+                self.analyze_custom_set()
+            elif choice == '9':
+                self.view_last_report()
+            elif choice == '10':
+                self.generate_visualizations()
+            elif choice == '11':
+                self.view_database_stats()
+            elif choice == '12':
                 print("\nThank you for using MathDiscoveryAI!")
                 break
             else:
@@ -67,8 +95,9 @@ class MathDiscoveryAI:
         self.last_analysis = self.analyzer.analyze_perfect_numbers()
         self.analyzer.print_summary(self.last_analysis)
         
-        print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
-        print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
     
     def analyze_mersenne_numbers(self):
         """Analyze Mersenne exponents"""
@@ -83,8 +112,94 @@ class MathDiscoveryAI:
         self.last_analysis = self.analyzer.analyze_mersenne_numbers()
         self.analyzer.print_summary(self.last_analysis)
         
-        print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
-        print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+
+    def analyze_prime_numbers(self):
+        """Analyze prime numbers"""
+        print("\n" + "=" * 120)
+        print("ANALYZING PRIME NUMBERS")
+        print("=" * 120)
+        
+        primes = PrimeNumbers.get_first(50)
+        print(f"Found {len(primes)} prime numbers")
+        print(f"Primes: {primes[:20]}{'...' if len(primes) > 20 else ''}")
+        
+        self.last_analysis = self.analyzer.analyze_number_set(primes, "Prime Numbers")
+        self.analyzer.print_summary(self.last_analysis)
+        
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+
+    def analyze_fibonacci_numbers(self):
+        """Analyze Fibonacci numbers"""
+        print("\n" + "=" * 120)
+        print("ANALYZING FIBONACCI NUMBERS")
+        print("=" * 120)
+        
+        fib = FibonacciNumbers.get_sequence(25)
+        print(f"Found {len(fib)} Fibonacci numbers")
+        print(f"Sequence: {fib[:20]}{'...' if len(fib) > 20 else ''}")
+        
+        self.last_analysis = self.analyzer.analyze_number_set(fib, "Fibonacci Numbers")
+        self.analyzer.print_summary(self.last_analysis)
+        
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+
+    def analyze_triangular_numbers(self):
+        """Analyze triangular numbers"""
+        print("\n" + "=" * 120)
+        print("ANALYZING TRIANGULAR NUMBERS")
+        print("=" * 120)
+        
+        triangular = TriangularNumbers.get_sequence(25)
+        print(f"Found {len(triangular)} triangular numbers")
+        print(f"Sequence: {triangular[:20]}{'...' if len(triangular) > 20 else ''}")
+        
+        self.last_analysis = self.analyzer.analyze_number_set(triangular, "Triangular Numbers")
+        self.analyzer.print_summary(self.last_analysis)
+        
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+
+    def analyze_amicable_numbers(self):
+        """Analyze amicable numbers"""
+        print("\n" + "=" * 120)
+        print("ANALYZING AMICABLE NUMBERS")
+        print("=" * 120)
+        
+        amicable = AmicableNumbers.get_numbers(10)
+        print(f"Found {len(amicable)} amicable numbers")
+        print(f"Numbers: {amicable}")
+        
+        self.last_analysis = self.analyzer.analyze_number_set(amicable, "Amicable Numbers")
+        self.analyzer.print_summary(self.last_analysis)
+        
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
+
+    def analyze_highly_composite_numbers(self):
+        """Analyze highly composite numbers"""
+        print("\n" + "=" * 120)
+        print("ANALYZING HIGHLY COMPOSITE NUMBERS")
+        print("=" * 120)
+        
+        hcns = HighlyCompositeNumbers.get_all(25)
+        print(f"Found {len(hcns)} highly composite numbers")
+        print(f"Numbers: {hcns[:20]}{'...' if len(hcns) > 20 else ''}")
+        
+        self.last_analysis = self.analyzer.analyze_number_set(hcns, "Highly Composite Numbers")
+        self.analyzer.print_summary(self.last_analysis)
+        
+        if self.last_analysis['conjectures']:
+            print(f"\nTop Conjecture: {self.last_analysis['conjectures'][0]['statement']}")
+            print(f"Confidence: {self.last_analysis['conjectures'][0]['confidence']:.1f}%")
     
     def analyze_custom_set(self):
         """Analyze custom number set"""

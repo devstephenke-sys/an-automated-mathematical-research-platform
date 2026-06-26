@@ -31,10 +31,32 @@ class MathAnalyzer:
         if use_cache:
             cached = self.db.get_cached_analysis(cache_key)
             if cached:
-                return cached
-        
+                print(f"Using cached analysis for {set_name}")
+                all_features = cached['features']
+                patterns = cached['patterns']
+                features_by_name = {}
+                for num_str, features in all_features.items():
+                    num = int(num_str)
+                    for fname, fvalue in features.items():
+                        features_by_name.setdefault(fname, []).append(fvalue)
+
+                conjectures = self.conjecture_engine.generate_from_patterns(patterns, numbers)
+                conjectures.extend(self.conjecture_engine.generate_novel_conjectures(numbers, set_name))
+                conjectures = self.conjecture_engine.rank_conjectures(conjectures)
+
+                return {
+                    'set_name': set_name,
+                    'number_count': len(numbers),
+                    'numbers': numbers,
+                    'features': all_features,
+                    'feature_summary': features_by_name,
+                    'patterns': patterns,
+                    'conjectures': conjectures,
+                    'total_features_extracted': len(features_by_name),
+                }
+
         print(f"Analyzing {len(numbers)} numbers from {set_name}...")
-        
+
         # Extract features for all numbers
         all_features = {}
         features_by_name = {}
